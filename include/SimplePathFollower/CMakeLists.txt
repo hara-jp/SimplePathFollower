@@ -1,9 +1,4 @@
 set(hdrs SimplePathFollower.h
-    PARENT_SCOPE
     MobileRobotSVC_impl.h
-    SimpleFollower.h
+    PARENT_SCOPE
     )
-
-install(FILES ${hdrs} DESTINATION ${INC_INSTALL_DIR}/${PROJECT_NAME_LOWER}
-    COMPONENT library)
-

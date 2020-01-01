@@ -1,14 +1,14 @@
 ﻿// -*- C++ -*-
 /*!
- * @file  SimplePathFollower.h
+ * @file  SimplePathFollowerTest.h
  * @brief Simple Algorithm Path Follower
  * @date  $Date$
  *
  * $Id$
  */
 
-#ifndef SIMPLEPATHFOLLOWER_H
-#define SIMPLEPATHFOLLOWER_H
+#ifndef SIMPLEPATHFOLLOWER_TEST__H
+#define SIMPLEPATHFOLLOWER_TEST_H
 
 #include <rtm/idl/BasicDataTypeSkel.h>
 #include <rtm/idl/ExtendedDataTypesSkel.h>
@@ -16,15 +16,19 @@
 
 // Service implementation headers
 // <rtc-template block="service_impl_h">
-#include "MobileRobotSVC_impl.h"
+#include "ExtendedDataTypesSVC_impl.h"
+#include "InterfaceDataTypesSVC_impl.h"
 
 // </rtc-template>
 
 // Service Consumer stub headers
 // <rtc-template block="consumer_stub_h">
-#include "ExtendedDataTypesStub.h"
-#include "InterfaceDataTypesStub.h"
+#include "MobileRobotStub.h"
 
+// </rtc-template>
+
+// Service Consumer stub headers
+// <rtc-template block="port_stub_h">
 // </rtc-template>
 
 #include <rtm/Manager.h>
@@ -33,24 +37,12 @@
 #include <rtm/DataInPort.h>
 #include <rtm/DataOutPort.h>
 
-using namespace RTC;
-
-#include "SimpleFollower.h"
-
-
-enum SIMPLE_PATH_FOLLOWER_MODE {
-  MODE_NORMAL,
-  MODE_TIMEOUT,
-  MODE_OUTOFRANGE,
-  MODE_GOALED,
-};
-
 /*!
- * @class SimplePathFollower
+ * @class SimplePathFollowerTest
  * @brief Simple Algorithm Path Follower
  *
  */
-class SimplePathFollower
+class SimplePathFollowerTest
   : public RTC::DataFlowComponentBase
 {
  public:
@@ -58,12 +50,12 @@ class SimplePathFollower
    * @brief constructor
    * @param manager Maneger Object
    */
-  SimplePathFollower(RTC::Manager* manager);
+  SimplePathFollowerTest(RTC::Manager* manager);
 
   /*!
    * @brief destructor
    */
-  ~SimplePathFollower();
+  ~SimplePathFollowerTest();
 
   // <rtc-template block="public_attribute">
   
@@ -76,6 +68,7 @@ class SimplePathFollower
   /***
    *
    * The initialize action (on CREATED->ALIVE transition)
+   * formaer rtc_init_entry() 
    *
    * @return RTC::ReturnCode_t
    * 
@@ -86,6 +79,7 @@ class SimplePathFollower
   /***
    *
    * The finalize action (on ALIVE->END transition)
+   * formaer rtc_exiting_entry()
    *
    * @return RTC::ReturnCode_t
    * 
@@ -96,6 +90,7 @@ class SimplePathFollower
   /***
    *
    * The startup action when ExecutionContext startup
+   * former rtc_starting_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -108,6 +103,7 @@ class SimplePathFollower
   /***
    *
    * The shutdown action when ExecutionContext stop
+   * former rtc_stopping_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -120,6 +116,7 @@ class SimplePathFollower
   /***
    *
    * The activated action (Active state entry action)
+   * former rtc_active_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -132,6 +129,7 @@ class SimplePathFollower
   /***
    *
    * The deactivated action (Active state exit action)
+   * former rtc_active_exit()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -144,6 +142,7 @@ class SimplePathFollower
   /***
    *
    * The execution action that is invoked periodically
+   * former rtc_active_do()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -156,6 +155,7 @@ class SimplePathFollower
   /***
    *
    * The aborting action when main logic error occurred.
+   * former rtc_aborting_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -168,6 +168,7 @@ class SimplePathFollower
   /***
    *
    * The error action in ERROR state
+   * former rtc_error_do()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -180,6 +181,7 @@ class SimplePathFollower
   /***
    *
    * The reset action that is invoked resetting
+   * This is same but different the former rtc_init_entry()
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -192,6 +194,7 @@ class SimplePathFollower
   /***
    *
    * The state update action that is invoked after onExecute() action
+   * no corresponding operation exists in OpenRTm-aist-0.2.0
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -204,6 +207,7 @@ class SimplePathFollower
   /***
    *
    * The action that is invoked when execution context's rate is changed
+   * no corresponding operation exists in OpenRTm-aist-0.2.0
    *
    * @param ec_id target ExecutionContext Id
    *
@@ -236,88 +240,81 @@ class SimplePathFollower
    * - Name:  poseTimeout
    * - DefaultValue: 3.0
    */
-  float m_poseTimeout;
+  std::string m_poseTimeout;
   /*!
    * 
    * - Name:  approachDirectionGain
    * - DefaultValue: 1.0
    */
-  float m_approachDirectionGain;
+  std::string m_approachDirectionGain;
   /*!
    * 
    * - Name:  directionToTranslationGain
    * - DefaultValue: 0.0
    */
-  float m_directionToTranslationGain;
+  std::string m_directionToTranslationGain;
   /*!
    * 
    * - Name:  directionToRotationGain
    * - DefaultValue: 0.0
    */
-  float m_directionToRotationGain;
+  std::string m_directionToRotationGain;
   /*!
    * 
    * - Name:  minVelocity
    * - DefaultValue: 0.2
    */
-  float m_minVelocity;
+  std::string m_minVelocity;
   /*!
    * 
    * - Name:  distanceToTranslationGain
    * - DefaultValue: 0.0
    */
-  float m_distanceToTranslationGain;
+  std::string m_distanceToTranslationGain;
   /*!
    * 
    * - Name:  approachDistanceGain
    * - DefaultValue: 0.5
    */
-  float m_approachDistanceGain;
+  std::string m_approachDistanceGain;
   /*!
    * 
    * - Name:  maxVelocity
    * - DefaultValue: 0.8
    */
-  float m_maxVelocity;
+  std::string m_maxVelocity;
   /*!
    * 
    * - Name:  distanceToRotationGain
    * - DefaultValue: 2.0
    */
-  float m_distanceToRotationGain;
+  std::string m_distanceToRotationGain;
 
   // </rtc-template>
 
   // DataInPort declaration
   // <rtc-template block="inport_declare">
-  RTC::TimedPose2D m_currentPose;
+  RTC::TimedVelocity2D m_velocity;
   /*!
    */
-  RTC::InPort<RTC::TimedPose2D> m_currentPoseIn;
-  RTC::Path2D m_path;
-  /*!
-   */
-  RTC::InPort<RTC::Path2D> m_pathIn;
+  RTC::InPort<RTC::TimedVelocity2D> m_velocityIn;
   
   // </rtc-template>
 
 
   // DataOutPort declaration
   // <rtc-template block="outport_declare">
-  RTC::TimedVelocity2D m_velocity;
+  RTC::TimedPose2D m_currentPose;
   /*!
    */
-  RTC::OutPort<RTC::TimedVelocity2D> m_velocityOut;
+  RTC::OutPort<RTC::TimedPose2D> m_currentPoseOut;
+  RTC::Path2D m_path;
+  /*!
+   */
+  RTC::OutPort<RTC::Path2D> m_pathOut;
   
   // </rtc-template>
 
-  enum __path_follower_state {
-    STATE_HALT,
-    STATE_FOLLOWING,
-    STATE_OUTOFRANGE,
-    STATE_ERROR,
-  };
-  
   // CORBA Port declaration
   // <rtc-template block="corbaport_declare">
   /*!
@@ -328,14 +325,14 @@ class SimplePathFollower
 
   // Service declaration
   // <rtc-template block="service_declare">
-  /*!
-   */
-  RTC_PathFollowerSVC_impl m_pathFollower;
   
   // </rtc-template>
 
   // Consumer declaration
   // <rtc-template block="consumer_declare">
+  /*!
+   */
+  RTC::CorbaConsumer<RTC::PathFollower> m_pathFollower;
   
   // </rtc-template>
 
@@ -347,40 +344,13 @@ class SimplePathFollower
   // <rtc-template block="private_operation">
   
   // </rtc-template>
-  bool m_poseUpdated;
-  SimpleFollower m_pathFollowerObj;
-
-public:
-
-  void startFollow() {
-    m_pathFollowerObj.startFollow(m_path);
-  }
-
-  void stopFollow() {
-	  m_pathFollowerObj.stopFollow();
-  }
-
-  void setPath(const RTC::Path2D& path) {
-    this->m_path = path;
-  }
-
-  coil::TimeValue m_lastReceivedTime;
-
-  SIMPLE_PATH_FOLLOWER_MODE m_Mode;
-
-public:
-  SIMPLE_PATH_FOLLOWER_MODE getMode() {return m_Mode;}
-
-  bool isGoal() {
-    return m_pathFollowerObj.isGoal();
-  }
 
 };
 
 
 extern "C"
 {
-  DLL_EXPORT void SimplePathFollowerInit(RTC::Manager* manager);
+  DLL_EXPORT void SimplePathFollowerTestInit(RTC::Manager* manager);
 };
 
-#endif // SIMPLEPATHFOLLOWER_H
+#endif // SIMPLEPATHFOLLOWER_TEST_H

@@ -1,4 +1,4 @@
-SimplePathFollower - 日本語
+﻿SimplePathFollower - 日本語
 =======================
 
 
@@ -99,8 +99,15 @@ SimplePathFollowerは ``SimplePathFollowerComp`` を実行（ ``${prefix}/compon
 パラメータ       データ型           デフォルト値     意味
 ================ ================== ================ ====
 debug            int                0                
-directionGain    float              1.0              
-distanceGain     float              1.0              
+poseTimeout      string             3.0              
+approachDirectionGain string             1.0              
+directionToTranslationGain string             0.0              
+directionToRotationGain string             0.0              
+minVelocity      string             0.2              
+distanceToTranslationGain string             0.0              
+approachDistanceGain string             0.5              
+maxVelocity      string             0.8              
+distanceToRotationGain string             2.0              
 ================ ================== ================ ====
 
 ポート
@@ -111,8 +118,8 @@ distanceGain     float              1.0
 =============== =========== ============================== ====
 ポート名        ポート型    データ型                       意味
 =============== =========== ============================== ====
-path            InPort      RTC::Path2D                    
 currentPose     InPort      RTC::TimedPose2D               
+path            InPort      RTC::Path2D                    
 velocity        OutPort     RTC::TimedVelocity2D           
 PathFollower    ServicePort RTC::PathFollower              
 =============== =========== ============================== ====

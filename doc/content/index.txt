@@ -1,4 +1,4 @@
-SimplePathFollowerName - English
+﻿SimplePathFollowerName - English
 ========================
 
 .. toctree::
@@ -107,8 +107,15 @@ The available configuration parameters are described below:
 Parameter        Data type          Default Value    Effect
 ================ ================== ================ ======
 debug            int                0                
-directionGain    float              1.0              
-distanceGain     float              1.0              
+poseTimeout      string             3.0              
+approachDirectionGain string             1.0              
+directionToTranslationGain string             0.0              
+directionToRotationGain string             0.0              
+minVelocity      string             0.2              
+distanceToTranslationGain string             0.0              
+approachDistanceGain string             0.5              
+maxVelocity      string             0.8              
+distanceToRotationGain string             2.0              
 ================ ================== ================ ======
 
 Ports
@@ -119,8 +126,8 @@ The ports provided by the component are described below:
 =============== =========== ============================== =======
 Name            Type        Data type                      Purpose
 =============== =========== ============================== =======
-path            InPort      RTC::Path2D                    
 currentPose     InPort      RTC::TimedPose2D               
+path            InPort      RTC::Path2D                    
 velocity        OutPort     RTC::TimedVelocity2D           
 PathFollower    ServicePort RTC::PathFollower              
 =============== =========== ============================== =======
